@@ -1,4 +1,4 @@
-package com.camel.schedulleNotification.entities;
+package com.camel.scheduleNotification.entities;
 
 public enum ScheduleType {
     EMAIL,

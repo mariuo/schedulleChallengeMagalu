@@ -1,13 +1,13 @@
-package com.camel.schedulleNotification;
+package com.camel.scheduleNotification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SchedulleNotificationApplication {
+public class ScheduleNotificationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SchedulleNotificationApplication.class, args);
+		SpringApplication.run(ScheduleNotificationApplication.class, args);
 	}
 
 }

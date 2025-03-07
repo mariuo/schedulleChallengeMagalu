@@ -1,4 +1,4 @@
-package com.camel.schedulleNotification.entities;
+package com.camel.scheduleNotification.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CommunicationSchedulle {
+public class CommunicationSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
