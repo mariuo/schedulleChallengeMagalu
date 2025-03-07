@@ -4,9 +4,9 @@ import com.camel.scheduleNotification.entities.ScheduleType;
 
 import java.time.LocalDateTime;
 
-public record RequestScheduleDTO(LocalDateTime scheduleDate,
+public record RequestScheduleDTO(LocalDateTime date,
                                  String message,
-                                 String destination,
-                                 ScheduleType scheduleType
+                                 String recipient,
+                                 ScheduleType type
 ) {
 }
