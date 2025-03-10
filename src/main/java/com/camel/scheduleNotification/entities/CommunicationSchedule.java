@@ -31,7 +31,6 @@ public class CommunicationSchedule {
     @Column(nullable = false)
     private ScheduleType type;
 
-    @Column(nullable = false)
     private LocalDateTime creadtedAt;
     private LocalDateTime updatedAt;
 
