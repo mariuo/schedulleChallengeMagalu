@@ -29,6 +29,7 @@ public class CommunicationScheduleService {
         entity.setMessage(dto.message());
         entity.setDate(dto.date());
         entity.setType(dto.type());
+        entity.setCreadtedAt(LocalDateTime.now());;
         return entity;
     }
     public RequestScheduleDTO toDto(CommunicationSchedule entity){
