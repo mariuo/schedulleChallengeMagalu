@@ -32,6 +32,12 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5")
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-api
+	testImplementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.5")
+
+
 }
 
 tasks.withType<Test> {
