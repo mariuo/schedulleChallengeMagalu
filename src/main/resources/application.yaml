@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: scheduleNotification
+  profiles:
+    active: ${APP_PROFILE:test}
