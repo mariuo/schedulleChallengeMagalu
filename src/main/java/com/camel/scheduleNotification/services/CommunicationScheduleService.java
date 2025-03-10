@@ -1,12 +1,16 @@
 package com.camel.scheduleNotification.services;
 
 import com.camel.scheduleNotification.dtos.RequestScheduleDTO;
+import com.camel.scheduleNotification.dtos.ResponseScheduleDTO;
 import com.camel.scheduleNotification.entities.CommunicationSchedule;
 import com.camel.scheduleNotification.entities.ScheduleStatus;
+import com.camel.scheduleNotification.exceptions.ResourceNotFoundException;
 import com.camel.scheduleNotification.repositories.CommunicationScheduleRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -32,7 +36,7 @@ public class CommunicationScheduleService {
         entity.setCreadtedAt(LocalDateTime.now());;
         return entity;
     }
-    public RequestScheduleDTO toDto(CommunicationSchedule entity){
+    public RequestScheduleDTO toDtoRequest(CommunicationSchedule entity){
         return new RequestScheduleDTO(
                 entity.getDate(),
                 entity.getMessage(),
@@ -40,6 +44,20 @@ public class CommunicationScheduleService {
                 entity.getType()
         );
     }
+    public ResponseScheduleDTO toDtoResponse(CommunicationSchedule entity){
+        return new ResponseScheduleDTO(
+                entity.getDate(),
+                entity.getMessage(),
+                entity.getRecipient(),
+                entity.getStatus()
+        );
+    }
+    public ResponseScheduleDTO getById(UUID id){
+        Optional<CommunicationSchedule> obj = communicationScheduleRepository.findById(id);
+        CommunicationSchedule entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not found"));
+        return toDtoResponse(entity);
+    }
+
 
 
 }
