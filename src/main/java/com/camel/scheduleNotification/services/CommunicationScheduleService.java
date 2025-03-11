@@ -13,7 +13,9 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-
+/**
+ * Service class for managing communication schedules.
+ */
 @Service
 public class CommunicationScheduleService {
     private final CommunicationScheduleRepository communicationScheduleRepository;
@@ -22,21 +24,40 @@ public class CommunicationScheduleService {
         this.communicationScheduleRepository = communicationScheduleRepository;
     }
 
+    /**
+     * Creates a new communication schedule.
+     *
+     * @param dto the DTO containing schedule details
+     * @return the created CommunicationSchedule
+     */
     public CommunicationSchedule create(@Valid RequestScheduleDTO dto){
         CommunicationSchedule entity = toEntity(dto);
         entity.setStatus(ScheduleStatus.SCHEDULED);
         return communicationScheduleRepository.save(entity);
     }
 
+    /**
+     * Converts a RequestScheduleDTO to a CommunicationSchedule entity.
+     *
+     * @param dto the DTO containing schedule details
+     * @return the CommunicationSchedule entity
+     */
     public CommunicationSchedule toEntity(RequestScheduleDTO dto){
         CommunicationSchedule entity = new CommunicationSchedule();
         entity.setRecipient(dto.recipient());
         entity.setMessage(dto.message());
         entity.setDate(dto.date());
         entity.setType(dto.type());
-        entity.setCreadtedAt(LocalDateTime.now());;
+        entity.setCreadtedAt(LocalDateTime.now());
         return entity;
     }
+
+    /**
+     * Converts a CommunicationSchedule entity to a RequestScheduleDTO.
+     *
+     * @param entity the CommunicationSchedule entity
+     * @return the RequestScheduleDTO
+     */
     public RequestScheduleDTO toDtoRequest(CommunicationSchedule entity){
         return new RequestScheduleDTO(
                 entity.getDate(),
@@ -45,6 +66,13 @@ public class CommunicationScheduleService {
                 entity.getType()
         );
     }
+
+    /**
+     * Converts a CommunicationSchedule entity to a ResponseScheduleDTO.
+     *
+     * @param entity the CommunicationSchedule entity
+     * @return the ResponseScheduleDTO
+     */
     public ResponseScheduleDTO toDtoResponse(CommunicationSchedule entity){
         return new ResponseScheduleDTO(
                 entity.getDate(),
@@ -53,16 +81,30 @@ public class CommunicationScheduleService {
                 entity.getStatus()
         );
     }
+
+    /**
+     * Retrieves a communication schedule by its ID.
+     *
+     * @param id the UUID of the schedule
+     * @return the ResponseScheduleDTO containing schedule details
+     * @throws ResourceNotFoundException if the schedule is not found
+     */
     public ResponseScheduleDTO getById(@Valid UUID id){
         Optional<CommunicationSchedule> obj = communicationScheduleRepository.findById(id);
-        CommunicationSchedule entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not found"));
+        CommunicationSchedule entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
         return toDtoResponse(entity);
     }
 
-
+    /**
+     * Cancels a communication schedule by its ID.
+     *
+     * @param id the UUID of the schedule
+     * @return the ResponseScheduleDTO containing updated schedule details
+     * @throws ResourceNotFoundException if the schedule is not found
+     */
     public ResponseScheduleDTO cancel(@Valid UUID id) {
         Optional<CommunicationSchedule> obj = communicationScheduleRepository.findById(id);
-        CommunicationSchedule entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not found"));
+        CommunicationSchedule entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
         entity.setStatus(ScheduleStatus.CANCELED);
         entity = communicationScheduleRepository.save(entity);
         return toDtoResponse(entity);
