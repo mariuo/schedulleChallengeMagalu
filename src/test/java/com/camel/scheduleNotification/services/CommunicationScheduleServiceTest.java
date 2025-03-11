@@ -96,4 +96,19 @@ public class CommunicationScheduleServiceTest {
 
         verify(repository, times(1)).findById(testId);
     }
+    @Test
+    void cancelShouldReturnResponseScheduleDTO() {
+        when(repository.findById(testId)).thenReturn(Optional.of(entity));
+        entity.setStatus(ScheduleStatus.CANCELED);
+        when(repository.save(entity)).thenReturn(entity);
+
+        ResponseScheduleDTO result = service.cancel(testId);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(response.date(), result.date());
+        Assertions.assertEquals(response.message(), result.message());
+        Assertions.assertEquals(response.recipient(), result.recipient());
+        Assertions.assertEquals(ScheduleStatus.CANCELED, result.status());
+        verify(repository, times(1)).findById(testId);
+        verify(repository, times(1)).save(entity);
+    }
 }

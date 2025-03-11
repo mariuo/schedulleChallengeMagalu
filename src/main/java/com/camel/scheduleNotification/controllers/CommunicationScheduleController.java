@@ -31,4 +31,9 @@ public class CommunicationScheduleController {
         ResponseScheduleDTO dto = service.getById(id);
         return ResponseEntity.ok().body(dto);
     }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<ResponseScheduleDTO> cancel(@Valid @PathVariable UUID id){
+        ResponseScheduleDTO dto = service.cancel(id);
+        return ResponseEntity.ok().body(dto);
+    }
 }

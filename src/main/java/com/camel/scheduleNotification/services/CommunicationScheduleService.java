@@ -6,6 +6,7 @@ import com.camel.scheduleNotification.entities.CommunicationSchedule;
 import com.camel.scheduleNotification.entities.ScheduleStatus;
 import com.camel.scheduleNotification.exceptions.ResourceNotFoundException;
 import com.camel.scheduleNotification.repositories.CommunicationScheduleRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public class CommunicationScheduleService {
         this.communicationScheduleRepository = communicationScheduleRepository;
     }
 
-    public CommunicationSchedule create(RequestScheduleDTO dto){
+    public CommunicationSchedule create(@Valid RequestScheduleDTO dto){
         CommunicationSchedule entity = toEntity(dto);
         entity.setStatus(ScheduleStatus.SCHEDULED);
         return communicationScheduleRepository.save(entity);
@@ -52,12 +53,18 @@ public class CommunicationScheduleService {
                 entity.getStatus()
         );
     }
-    public ResponseScheduleDTO getById(UUID id){
+    public ResponseScheduleDTO getById(@Valid UUID id){
         Optional<CommunicationSchedule> obj = communicationScheduleRepository.findById(id);
         CommunicationSchedule entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not found"));
         return toDtoResponse(entity);
     }
 
 
-
+    public ResponseScheduleDTO cancel(@Valid UUID id) {
+        Optional<CommunicationSchedule> obj = communicationScheduleRepository.findById(id);
+        CommunicationSchedule entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not found"));
+        entity.setStatus(ScheduleStatus.CANCELED);
+        entity = communicationScheduleRepository.save(entity);
+        return toDtoResponse(entity);
+    }
 }
