@@ -23,16 +23,16 @@ public class CommunicationScheduleController {
 
     @PostMapping
     public ResponseEntity<CommunicationSchedule> create(@Valid @RequestBody RequestScheduleDTO scheduleDto){
-        return new ResponseEntity<CommunicationSchedule>(service.create(scheduleDto), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(scheduleDto));
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ResponseScheduleDTO> get(@Valid @PathVariable UUID id){
+    public ResponseEntity<ResponseScheduleDTO> get(@PathVariable UUID id){
         ResponseScheduleDTO dto = service.getById(id);
         return ResponseEntity.ok().body(dto);
     }
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<ResponseScheduleDTO> cancel(@Valid @PathVariable UUID id){
+    public ResponseEntity<ResponseScheduleDTO> cancel(@PathVariable UUID id){
         ResponseScheduleDTO dto = service.cancel(id);
         return ResponseEntity.ok().body(dto);
     }
