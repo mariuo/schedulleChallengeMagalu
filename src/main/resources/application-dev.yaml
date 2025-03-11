@@ -1,0 +1,25 @@
+spring:
+  threads:
+    virtual:
+      enable: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scheduledb
+    username: scheduleuser
+    password: schedulepass
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+    #    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# swagger-ui custom path
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  # /api-docs endpoint custom path
+  api-docs:
+    path: /api-docs

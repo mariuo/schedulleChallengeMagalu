@@ -1,0 +1,9 @@
+services:
+  database:
+    image: 'postgres:12'
+    ports:
+      - '5432'
+    environment:
+      - 'POSTGRES_USER=scheduleuser'
+      - 'POSTGRES_DB=schedulendb'
+      - 'POSTGRES_PASSWORD=schedulepass'

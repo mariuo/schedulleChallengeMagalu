@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.camel"
-version = "0.0.1-SNAPSHOT"
+version = "schedule-1.0"
 
 java {
 	toolchain {
@@ -36,6 +36,9 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5")
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-api
 	testImplementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.5")
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-docker-compose
+	implementation("org.springframework.boot:spring-boot-docker-compose:3.4.3")
+
 
 
 }
